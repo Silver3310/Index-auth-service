@@ -1,1 +1,48 @@
 {% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+  <h1>{{ home_active }}</h1>
+  <div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="eight wide column">
+          <h3 class="ui header">{% trans 'We Help People Get Clother' %}</h3>
+          <p>
+            {% trans 'This is a place that lets people around the globe communicate with each other to share their language experience' %}
+          </p>
+          <h3 class="ui header">{% trans 'The simpler the better' %}</h3>
+          <p>
+            {% trans "The website's interface is extremely simple so you can quickly find your way around" %}
+          </p>
+        </div>
+        <div class="six wide right floated column">
+          <img
+            class="ui large bordered rounded image"
+            alt="earth image"
+            src="{% static 'images/decoration/earth.jpg' %}"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui vertical stripe quote segment">
+    <div class="ui equal width stackable internally celled grid">
+      <div class="center aligned row">
+        <div class="column">
+          <h3>{% trans '"What a convenient service!"' %}</h3>
+          <p>{% trans 'That is what users say about us' %}</p>
+        </div>
+        <div class="column">
+          <h3>{% trans 'Brillient work, Einstein, genious, so original' %}</h3>
+          <p>{% trans 'My best friend' %}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="center aligned column">
+          <a class="ui huge button" href="https://github.com/Silver3310/Index-auth-service">{% trans 'source code on GitHub' %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

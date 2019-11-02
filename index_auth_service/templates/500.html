@@ -1,13 +1,22 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Server Error{% endblock %}
+{% block title %}{% trans "Server Error" %}{% endblock %}
 
 {% block content %}
-<h1>Ooops!!! 500</h1>
-
-<h3>Looks like something went wrong!</h3>
-
-<p>We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.</p>
+  <div class="ui vertical stripe segment">
+        <div class="ui middle aligned stackable grid container">
+          <div class="row">
+            <div class="eight wide column">
+              <h1 class="ui header">{% trans "Ooops!!! 500" %}</h1>
+              <h3>{% trans "Looks like something went wrong!" %}</h3>
+              <p>
+                {% trans "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing." %}
+              </p>
+            </div>
+          </div>
+        </div>
+  </div>
 {% endblock content %}
 
 

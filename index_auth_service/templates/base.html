@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}Index Auth Service{% endblock title %}</title>
+    <title>{% block title %}Privet there!{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Alexey Elivanov">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -16,99 +16,175 @@
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
 
     {% block css %}
-    
-    <!-- Latest compiled and minified Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
 
-    <!-- Your stuff: Third-party CSS libraries go here -->
-    
-    <!-- This file stores project-specific CSS -->
-    
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    
-    
+    {# Third-party CSS libraries go here #}
+    <link
+            href="{% static 'css/libs/semantic.min.css' %}"
+            rel="stylesheet"
+            type="text/css"
+    >
+
+    {# This file stores project-specific CSS #}
+    <link
+            href="{% static 'css/base.css' %}"
+            rel="stylesheet"
+            type="text/css"
+    >
+
     {% endblock %}
 
   </head>
 
-  <body>
+  <body id="root">
 
-    <div class="mb-1">
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="{% url 'home' %}">Index Auth Service</a>
+    {# BEGIN of login stuff #}
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">About</a>
-            </li>
-            {% if request.user.is_authenticated %}
-              <li class="nav-item">
+      {# Show the nav bar when scrolling #}
+      <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+          <a class="active item" href="{% url 'home' %}">{% trans "Home" %}</a>
+          <a class="item" href="{% url 'about' %}">{% trans "About" %}</a>
+          {% if request.user.is_authenticated %}
+            {# URL provided by django-allauth/account/urls.py #}
+            <a class="item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
+            <div class="right menu">
+              <div class="item">
                 {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
-              </li>
-              <li class="nav-item">
+                <a class="item" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+              </div>
+            </div>
+          {% else %}
+            <div class="right menu">
+              <div class="item">
                 {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-              </li>
-            {% else %}
-              <li class="nav-item">
+                <a class="item" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+              </div>
+              <div class="item">
                 {# URL provided by django-allauth/account/urls.py #}
-                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-              </li>
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-              </li>
-            {% endif %}
-          </ul>
+                <a class="item" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+              </div>
+            </div>
+          {% endif %}
         </div>
-      </nav>
+      </div>
 
-    </div>
+      {# Sidebar menu #}
+      <div class="ui vertical inverted sidebar menu">
+        <a class="active item" href="{% url 'home' %}">{% trans "Home" %}</a>
+        <a class="item" href="{% url 'about' %}">{% trans "About" %}</a>
+        {% if request.user.is_authenticated %}
+          {# URL provided by django-allauth/account/urls.py #}
+          <a class="item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
+          {# URL provided by django-allauth/account/urls.py #}
+          <a class="item" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+        {% else %}
+          {# URL provided by django-allauth/account/urls.py #}
+          <a class="item" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+          {# URL provided by django-allauth/account/urls.py #}
+          <a class="item" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+        {% endif %}
+      </div>
 
-    <div class="container">
+      {# Page Content #}
+      <div class="pusher">
+        <div class="ui inverted vertical masthead center aligned segment">
+          <div class="ui container">
+            <div class="ui large secondary inverted pointing menu">
+              <a class="toc item"><i class="sidebar icon"></i></a>
+              <a class="active item" href="{% url 'home' %}">{% trans "Home" %}</a>
+              <a class="item" href="{% url 'about' %}">{% trans "About" %}</a>
+              {% if request.user.is_authenticated %}
+                {# URL provided by django-allauth/account/urls.py #}
+                <a class="item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
+                <div class="right item">
+                  {# URL provided by django-allauth/account/urls.py #}
+                  <a class="ui inverted button" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+                </div>
+              {% else %}
+                <div class="right item">
+                  {# URL provided by django-allauth/account/urls.py #}
+                  <a class="ui inverted button" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+                  {# URL provided by django-allauth/account/urls.py #}
+                  <a class="ui inverted button" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
 
-      {% if messages %}
+        {# END of login stuff #}
+
+          {% block upper_content %}
+            <div class="ui text container">
+              <h1 class="ui inverted header">Privet There!</h1>
+              <h2>We are glad to see you here! Make yourself at home</h2>
+            </div>
+          {% endblock %}
+
+        </div>
+
+        {# messages #}
+
+        {% if messages %}
           {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+              <div class="ui message alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
           {% endfor %}
-      {% endif %}
+        {% endif %}
 
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
+        {% block content %}
+        {% endblock %}
 
-    </div> <!-- /container -->
+        {% block footer %}
+          <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+              <div
+                class="ui stackable inverted divided equal height stackable grid"
+              >
+                <div class="three wide column">
+                  <h4 class="ui inverted header">About</h4>
+                  <div class="ui inverted link list">
+                    <a class="item" href="#root">Sitemap</a>
+                    <a class="item" href="#root">Contact Us</a>
+                    <a class="item" href="https://github.com/Silver3310/Index-auth-service">Source code</a>
+                  </div>
+                </div>
+                <div class="three wide column">
+                  <h4 class="ui inverted header">Services</h4>
+                  <div class="ui inverted link list">
+                    <a class="item" href="#root">DNA FAQ</a>
+                    <a class="item" href="#root">How To Access</a>
+                  </div>
+                </div>
+                <div class="seven wide column">
+                  <h4 class="ui inverted header">Footer Header</h4>
+                  <p>
+                    Extra space for a call to action inside the footer that could
+                    help re-engage users.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endblock %}
 
+    {# END of login stuff #}
+
+    {# modal blocks #}
     {% block modal %}{% endblock modal %}
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     {% block javascript %}
-      
-      <!-- Bootstrap JS and its dependencies-->
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
       <!-- Your stuff: Third-party javascript libraries go here -->
-      
+      <script src="{% static 'js/libs/jquery.min.js' %}"></script>
+      <script src="{% static 'js/libs/semantic.min.js' %}"></script>
 
       <!-- place project specific Javascript in this file -->
-      
-      <script src="{% static 'js/project.js' %}"></script>
-      
+      <script src="{% static 'js/base.js' %}"></script>
 
     {% endblock javascript %}
+    </div> {# <div class='pusher'> #}
   </body>
 </html>
- 
+

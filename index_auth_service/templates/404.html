@@ -1,9 +1,19 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Page not found{% endblock %}
+{% block title %}{% trans "Page not found" %}{% endblock %}
 
 {% block content %}
-<h1>Page not found</h1>
-
-<p>This is not the page you were looking for.</p>
+  <div class="ui vertical stripe segment">
+        <div class="ui middle aligned stackable grid container">
+          <div class="row">
+            <div class="eight wide column">
+              <h1 class="ui header">{% trans "Page not found" %}</h1>
+              <p>
+                {% trans "This is not the page you were looking for." %}
+              </p>
+            </div>
+          </div>
+        </div>
+  </div>
 {% endblock content %}

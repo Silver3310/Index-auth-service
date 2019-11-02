@@ -1,9 +1,19 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Forbidden (403){% endblock %}
+{% block title %}{% trans "Forbidden (403)" %}{% endblock %}
 
 {% block content %}
-<h1>Forbidden (403)</h1>
-
-<p>CSRF verification failed. Request aborted.</p>
+  <div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="eight wide column">
+          <h1 class="ui header">{% trans "Forbidden (403)" %}</h1>
+          <p>
+            {% trans "CSRF verification failed. Request aborted." %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
