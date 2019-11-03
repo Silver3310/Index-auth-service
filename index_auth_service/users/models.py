@@ -5,6 +5,19 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class User(AbstractUser):
+    """
+    Custom user model
+
+    Attrs:
+        username (str): username
+        name (str): replacement for first and last names
+        first_name (str): first name
+        last_name (str): last name
+        email (str): email
+        is_active (bool): if this user is active or not
+        is_staff (bool): if this user is a member of staff or not
+        date_joined (datetime): the datetime when user joined
+    """
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
