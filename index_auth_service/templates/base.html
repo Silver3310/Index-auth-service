@@ -1,4 +1,4 @@
-{% load static i18n %}<!DOCTYPE html>
+{% load static i18n common %}<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -37,81 +37,7 @@
 
   <body id="root">
 
-    {# BEGIN of login stuff #}
-
-      {# Show the nav bar when scrolling #}
-      <div class="ui large top fixed hidden menu">
-        <div class="ui container">
-          <a class="active item" href="{% url 'home' %}">{% trans "Home" %}</a>
-          <a class="item" href="{% url 'about' %}">{% trans "About" %}</a>
-          {% if request.user.is_authenticated %}
-            {# URL provided by django-allauth/account/urls.py #}
-            <a class="item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
-            <div class="right menu">
-              <div class="item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="item" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-              </div>
-            </div>
-          {% else %}
-            <div class="right menu">
-              <div class="item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="item" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-              </div>
-              <div class="item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="item" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-              </div>
-            </div>
-          {% endif %}
-        </div>
-      </div>
-
-      {# Sidebar menu #}
-      <div class="ui vertical inverted sidebar menu">
-        <a class="active item" href="{% url 'home' %}">{% trans "Home" %}</a>
-        <a class="item" href="{% url 'about' %}">{% trans "About" %}</a>
-        {% if request.user.is_authenticated %}
-          {# URL provided by django-allauth/account/urls.py #}
-          <a class="item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
-          {# URL provided by django-allauth/account/urls.py #}
-          <a class="item" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-        {% else %}
-          {# URL provided by django-allauth/account/urls.py #}
-          <a class="item" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-          {# URL provided by django-allauth/account/urls.py #}
-          <a class="item" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-        {% endif %}
-      </div>
-
-      {# Page Content #}
-      <div class="pusher">
-        <div class="ui inverted vertical masthead center aligned segment">
-          <div class="ui container">
-            <div class="ui large secondary inverted pointing menu">
-              <a class="toc item"><i class="sidebar icon"></i></a>
-              <a class="active item" href="{% url 'home' %}">{% trans "Home" %}</a>
-              <a class="item" href="{% url 'about' %}">{% trans "About" %}</a>
-              {% if request.user.is_authenticated %}
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
-                <div class="right item">
-                  {# URL provided by django-allauth/account/urls.py #}
-                  <a class="ui inverted button" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-                </div>
-              {% else %}
-                <div class="right item">
-                  {# URL provided by django-allauth/account/urls.py #}
-                  <a class="ui inverted button" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-                  {# URL provided by django-allauth/account/urls.py #}
-                  <a class="ui inverted button" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-                </div>
-              {% endif %}
-            </div>
-          </div>
-
-        {# END of login stuff #}
+      {% nav_bar %}
 
           {% block upper_content %}
             <div class="ui text container">
@@ -120,7 +46,7 @@
             </div>
           {% endblock %}
 
-        </div>
+        </div> {# <div class="ui inverted vertical masthead center aligned segment"> #}
 
         {# messages #}
 
