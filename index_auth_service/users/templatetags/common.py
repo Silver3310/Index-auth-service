@@ -16,6 +16,7 @@ def nav_bar(context):
     home_active = ''
     about_active = ''
     detail_active = ''
+    list_active = ''
     logout_active = ''
     signup_active = ''
     login_active = ''
@@ -29,6 +30,8 @@ def nav_bar(context):
         about_active = 'active'
     elif url_name == 'detail':
         detail_active = 'active'
+    elif url_name == 'list':
+        list_active = 'active'
     elif url_name == 'account_logout':
         logout_active = 'active'
     elif url_name == 'account_signup':
@@ -41,6 +44,7 @@ def nav_bar(context):
         'home_active': home_active,
         'about_active': about_active,
         'detail_active': detail_active,
+        'list_active': list_active,
         'logout_active': logout_active,
         'signup_active': signup_active,
         'login_active': login_active,

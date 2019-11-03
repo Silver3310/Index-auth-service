@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}User: {{ object.username }}{% endblock %}
+{% block title %}{% trans 'User' %}: {{ object.username }}{% endblock %}
 
 {% block content %}
 <div class="ui vertical stripe segment">
@@ -21,17 +21,16 @@
           </div>
 
         {% if object == request.user %}
-        <!-- Action buttons -->
+        {# Action buttons #}
         <div class="row">
 
           <div class="col-sm-12">
-            <a class="ui primary button" href="{% url 'users:update' %}" role="button">My Info</a>
-            <a class="ui orange button" href="{% url 'account_email' %}" role="button">E-Mail</a>
-            <!-- Your Stuff: Custom user template urls -->
+            <a class="ui primary button" href="{% url 'users:update' %}" role="button">{% trans 'My Info' %}</a>
+            <a class="ui orange button" href="{% url 'account_email' %}" role="button">{% trans 'E-Mail' %}</a>
           </div>
 
         </div>
-        <!-- End Action buttons -->
+        {# End of action buttons #}
         {% endif %}
 
 

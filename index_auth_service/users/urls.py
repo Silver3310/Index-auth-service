@@ -1,10 +1,10 @@
 from django.urls import path
 
-from index_auth_service.users.views import (
-    user_redirect_view,
-    user_update_view,
-    user_detail_view,
-)
+from .views import user_redirect_view
+from .views import user_update_view
+from .views import user_detail_view
+from .views import user_list_view
+
 
 app_name = "users"
 urlpatterns = [
@@ -17,6 +17,11 @@ urlpatterns = [
         "~update/",
         view=user_update_view,
         name="update"
+    ),
+    path(
+        "~list/",
+        view=user_list_view,
+        name="list"
     ),
     path(
         "<str:username>/",

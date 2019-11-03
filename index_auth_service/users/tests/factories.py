@@ -6,7 +6,6 @@ from factory import DjangoModelFactory
 from factory import Faker
 from factory import post_generation
 from factory import SubFactory
-from factory.fuzzy import FuzzyChoice
 
 from index_auth_service.users.models import Friendship
 
@@ -40,10 +39,6 @@ class FriendshipFactory(DjangoModelFactory):
 
     user_from = SubFactory(UserFactory)
     user_to = SubFactory(UserFactory)
-    status = FuzzyChoice(
-        Friendship.STATUS_CHOICES,
-        getter=lambda c: c[0]
-    )
 
     class Meta:
         model = Friendship
