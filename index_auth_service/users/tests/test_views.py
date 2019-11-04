@@ -6,7 +6,6 @@ from index_auth_service.users.views import UserRedirectView
 from index_auth_service.users.views import UserUpdateView
 from index_auth_service.users.views import UserListView
 from index_auth_service.users.views import FriendshipListView
-from index_auth_service.users.models import Friendship
 
 from .factories import FriendshipFactory
 

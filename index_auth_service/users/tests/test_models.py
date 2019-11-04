@@ -11,7 +11,6 @@ def test_user_get_absolute_url(user: settings.AUTH_USER_MODEL):
     assert user.get_absolute_url() == f"/users/{user.username}/"
 
 
-@pytest.mark.django_db
 def test_friendship_creations():
     """Check if friendships are created without any surprise"""
     FriendshipFactory()
