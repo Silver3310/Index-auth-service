@@ -8,6 +8,9 @@ from django.db.models import Model
 from django.db.models import ForeignKey
 from django.db.models import CASCADE
 
+from .managers import CustomUserManager
+from .managers import FriendshipManager
+
 
 class User(AbstractUser):
     """
@@ -31,6 +34,8 @@ class User(AbstractUser):
         blank=True,
         max_length=255
     )
+
+    objects = CustomUserManager()
 
     def get_absolute_url(self):
         return reverse(
@@ -81,6 +86,8 @@ class Friendship(Model):
         choices=STATUS_CHOICES,
         default=WAITING_FOR_REPLY
     )
+
+    objects = FriendshipManager()
 
     def is_active(self):
         return self.status == self.FRIENDS
