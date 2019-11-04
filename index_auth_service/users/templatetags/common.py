@@ -20,6 +20,7 @@ def nav_bar(context):
     logout_active = ''
     signup_active = ''
     login_active = ''
+    friends_active = ''
 
     request = context['request']
     url_name = resolve(request.path_info).url_name
@@ -32,6 +33,8 @@ def nav_bar(context):
         detail_active = 'active'
     elif url_name == 'list':
         list_active = 'active'
+    elif url_name == 'friends':
+        friends_active = 'active'
     elif url_name == 'account_logout':
         logout_active = 'active'
     elif url_name == 'account_signup':
@@ -45,6 +48,7 @@ def nav_bar(context):
         'about_active': about_active,
         'detail_active': detail_active,
         'list_active': list_active,
+        'friends_active': friends_active,
         'logout_active': logout_active,
         'signup_active': signup_active,
         'login_active': login_active,

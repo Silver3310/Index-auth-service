@@ -4,6 +4,7 @@ from .views import user_redirect_view
 from .views import user_update_view
 from .views import user_detail_view
 from .views import user_list_view
+from .views import friendship_list_view
 
 
 app_name = "users"
@@ -22,6 +23,11 @@ urlpatterns = [
         "~list/",
         view=user_list_view,
         name="list"
+    ),
+    path(
+        "~friends/",
+        view=friendship_list_view,
+        name="friends"
     ),
     path(
         "<str:username>/",

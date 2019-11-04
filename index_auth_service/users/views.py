@@ -1,12 +1,15 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
+from django.db.models import Q
 from django.views.generic import DetailView
 from django.views.generic import RedirectView
 from django.views.generic import UpdateView
 from django.views.generic import ListView
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+
+from .models import Friendship
 
 User = get_user_model()
 
@@ -90,3 +93,22 @@ class UserListView(LoginRequiredMixin, ListView):
 
 
 user_list_view = UserListView.as_view()
+
+
+class FriendshipListView(LoginRequiredMixin, ListView):
+    """
+    List all the user's friends
+    """
+
+    model = Friendship
+    template_name = 'users/friends_list.html'
+
+    def get_queryset(self):
+        """Get all the user's friends"""
+        data = super().get_queryset().filter(
+            Q(user_from=self.request.user) | Q(user_to=self.request.user),
+        ).order_by('status')
+        return data
+
+
+friendship_list_view = FriendshipListView.as_view()
