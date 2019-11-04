@@ -38,10 +38,10 @@
         {% if request.user.is_authenticated %}
           {# URL provided by django-allauth/account/urls.py #}
           <a class="{{ detail_active }} item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
-          {# URL provided by django-allauth/account/urls.py #}
-          <a class="{{ logout_active }} item" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
           <a class="{{ list_active }} item" href="{% url 'users:list' %}">{% trans "Users" %}</a>
           <a class="{{ friends_active }} item" href="{% url 'users:friends' %}">{% trans "Friends" %}</a>
+          {# URL provided by django-allauth/account/urls.py #}
+          <a class="{{ logout_active }} item" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
         {% else %}
           {# URL provided by django-allauth/account/urls.py #}
           <a class="{{ signup_active }} item" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>

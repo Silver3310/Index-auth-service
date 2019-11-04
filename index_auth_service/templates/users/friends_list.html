@@ -8,24 +8,15 @@
   <div class="ui middle aligned stackable grid container">
 
           <table class="ui celled table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>{% trans 'Name' %}</th>
-                <th>{% trans 'Status' %}</th>
-              </tr>
-            </thead>
             <tbody>
             {% for object in object_list %}
               <tr>
                 {% if object.user_to == request.user %}
-                <td data-label="ID">{{ object.user_from.pk }}</td>
-                <td data-label="Name">{{ object.user_from.username }}</td>
+                  <td data-label="Name"><a href="{% url 'users:detail' object.user_from.username %}">{{ object.user_from.username }}</a></td>
                 {% else %}
-                <td data-label="ID">{{ object.user_to.pk }}</td>
-                <td data-label="Name">{{ object.user_to.username }}</td>
+                  <td data-label="Name"><a href="{% url 'users:detail' object.user_to.username %}">{{ object.user_to.username }}</a></td>
                 {% endif %}
-                <td data-label="DateJoined">{{ object.get_status_display }}</td>
+                <td data-label="Status">{% trans 'Status' %}: {{ object.get_status_display }}</td>
               </tr>
             {% endfor %}
             </tbody>
