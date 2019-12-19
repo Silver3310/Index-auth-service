@@ -13,7 +13,7 @@ def run_command(arg):
 
 
 if __name__ == "__main__":
-    command = sys.argv[1]
+    command = ' '.join(sys.argv[1:])
 
     run_command(command)
 
