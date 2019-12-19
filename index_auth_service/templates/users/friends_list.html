@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans 'List of users' %}{% endblock %}
+{% block title %}{% trans 'List of friends' %}{% endblock %}
 
 {% block content %}
 <div class="ui vertical low-stripe segment">
@@ -11,12 +11,32 @@
             <tbody>
             {% for object in object_list %}
               <tr>
+                <td data-label="Status">
+                  {% trans 'Status' %}: {{ object.get_status_display }}
+                </td>
                 {% if object.user_to == request.user %}
-                  <td data-label="Name"><a href="{% url 'users:detail' object.user_from.username %}">{{ object.user_from.username }}</a></td>
+                  <td data-label="Name">
+                    <a href="{% url 'users:detail' object.user_from.username %}">{{ object.user_from.username }}</a>
+                  </td>
+                  {% if object.status == 'WR' %} {# user_from is a initiator and the status is waiting #}
+                    <td data-label="Approve">
+                      <a href="{% url 'users:approve_friend' object.user_from.pk %}?friends=1">{% trans 'Approve' %}</a>
+                      /
+                      <a href="{% url 'users:delete_friend' object.user_from.pk %}?friends=1">{% trans 'Refuse' %}</a>
+                    </td>
+                  {% else %}
+                    <td data-label="Delete">
+                      <a href="{% url 'users:delete_friend' object.user_from.pk %}?friends=1">{% trans 'Delete' %}</a>
+                    </td>
+                  {% endif %}
                 {% else %}
-                  <td data-label="Name"><a href="{% url 'users:detail' object.user_to.username %}">{{ object.user_to.username }}</a></td>
+                  <td data-label="Name">
+                    <a href="{% url 'users:detail' object.user_to.username %}">{{ object.user_to.username }}</a>
+                  </td>
+                  <td data-label="Delete">
+                    <a href="{% url 'users:delete_friend' object.user_to.pk %}?friends=1">{% trans 'Delete' %}</a>
+                  </td>
                 {% endif %}
-                <td data-label="Status">{% trans 'Status' %}: {{ object.get_status_display }}</td>
               </tr>
             {% endfor %}
             </tbody>

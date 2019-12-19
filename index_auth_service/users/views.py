@@ -1,12 +1,15 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
-from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
+
 from django.views.generic import DetailView
 from django.views.generic import RedirectView
 from django.views.generic import UpdateView
 from django.views.generic import ListView
-from django.contrib import messages
+
 from django.utils.translation import ugettext_lazy as _
 
 from .models import Friendship
@@ -106,3 +109,72 @@ class FriendshipListView(LoginRequiredMixin, ListView):
 
 
 friendship_list_view = FriendshipListView.as_view()
+
+
+def add_friend(
+    request,
+    pk: str
+):
+    """
+    Add a friend to a user
+    """
+
+    # create a friendship object
+    Friendship.objects.make_user_friend(
+        request.user,
+        User.objects.get(pk=int(pk))
+    )
+
+    return HttpResponseRedirect(
+        reverse(
+            'users:list',
+        )
+    )
+
+
+def delete_friend(
+    request,
+    pk: str
+):
+    """
+    Delete a friend request or friendship
+    """
+
+    Friendship.objects.delete_user_friend(
+        request.user,
+        User.objects.get(pk=int(pk))
+    )
+
+    # return to the friends page if the request was from there
+    if 'friends' in request.GET:
+        return HttpResponseRedirect(
+            reverse('users:friends')
+        )
+
+    return HttpResponseRedirect(
+        reverse('users:list')
+    )
+
+
+def approve_friend(
+    request,
+    pk: str
+):
+    """
+    Approve a friend request
+    """
+
+    Friendship.objects.approve_user_friend(
+        user_to=request.user,
+        user_from=User.objects.get(pk=int(pk))
+    )
+
+    # return to the friends page if the request was from there
+    if 'friends' in request.GET:
+        return HttpResponseRedirect(
+            reverse('users:friends')
+        )
+
+    return HttpResponseRedirect(
+        reverse('users:list')
+    )

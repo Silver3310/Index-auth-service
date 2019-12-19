@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static i18n user_tag %}
 
 {% block title %}{% trans 'List of users' %}{% endblock %}
 
@@ -7,12 +7,40 @@
 <div class="ui vertical low-stripe segment">
   <div class="ui middle aligned stackable grid container">
 
-          <table class="ui celled table">
+          <table class="ui celled table" style="text-align: center; vertical-align: middle; table-layout: fixed;">
             <tbody>
             {% for object in object_list %}
               <tr>
-                <td data-label="Name"><a href="{% url 'users:detail' object.username %}">{{ object.username }}</a></td>
-                <td data-label="DateJoined">{% trans 'Date Joined' %}: {{ object.date_joined }}</td>
+                <td data-label="Name">
+                  <a href="{% url 'users:detail' object.username %}">{{ object.username }}</a>
+                </td>
+                <td data-label="DateJoined">
+                  {% trans 'Date Joined' %}: {{ object.date_joined }}
+                </td>
+                <td data-label="AddToFriends">
+                  {% get_friend object.pk as friendship %}
+                  {% if friendship.status == 'WR' %}
+                    {% if friendship.user_to == request.user %} {# user_from is a initiator and the status is waiting #}
+                      <a href="{% url 'users:approve_friend' object.pk %}">{% trans 'Approve' %}</a>
+                      /
+                      <a href="{% url 'users:delete_friend' object.pk %}">{% trans 'Refuse' %}</a>
+                    {% else %}
+                      <a
+                        href="{% url 'users:delete_friend' object.pk %}"
+                        onmouseover="this.innerHTML='{% trans 'Cancel' %}';"
+                        onmouseout="this.innerHTML='{% trans 'Waiting for reply' %}';"
+                      >{% trans 'Waiting for reply' %}</a>
+                    {% endif %}
+                  {% elif friendship.status == 'FR' %}
+                    <a
+                      href="{% url 'users:delete_friend' object.pk %}"
+                      onmouseover="this.innerHTML='{% trans 'Delete' %}';"
+                      onmouseout="this.innerHTML='{% trans 'Friends' %}';"
+                    >{% trans 'Friends' %}</a>
+                  {% else %}
+                    <a href="{% url 'users:add_friend' object.pk %}">{% trans 'Add to Friends' %}</a>
+                  {% endif %}
+                </td>
               </tr>
             {% endfor %}
             </tbody>
