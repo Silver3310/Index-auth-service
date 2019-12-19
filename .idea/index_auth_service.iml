@@ -14,9 +14,10 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/index_auth_service" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.7 (index_auth_service)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (Index-auth-service)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
@@ -26,7 +27,6 @@
     <option name="renderExternalDocumentation" value="true" />
   </component>
   <component name="ReSTService">
-    <option name="workdir" value="$MODULE_DIR$/docs" />
     <option name="DOC_DIR" value="$MODULE_DIR$/docs" />
   </component>
   <component name="TemplatesService">
@@ -38,7 +38,6 @@
     </option>
   </component>
   <component name="TestRunnerService">
-    <option name="projectConfiguration" value="pytest" />
     <option name="PROJECT_TEST_RUNNER" value="pytest" />
   </component>
 </module>
