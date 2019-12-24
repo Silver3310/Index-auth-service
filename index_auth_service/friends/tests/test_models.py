@@ -8,6 +8,8 @@ pytestmark = pytest.mark.django_db
 
 def test_friendship_creations():
     """Check if friendships are created without any surprise"""
-    FriendshipFactory()
+    friendship: Friendship = FriendshipFactory()
     assert Friendship.objects.count() == 1
-    assert Friendship.objects.first().status == Friendship.WAITING_FOR_REPLY
+    assert friendship.status == Friendship.WAITING_FOR_REPLY
+    assert friendship.is_active() is False
+    assert str(friendship) == f'{friendship.user_from} - {friendship.user_to}'

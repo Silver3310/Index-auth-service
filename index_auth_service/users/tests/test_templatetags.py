@@ -9,28 +9,6 @@ from django.urls import reverse
 User = get_user_model()
 
 
-@pytest.fixture()
-def user_to_login(
-    client,
-    django_user_model
-):
-    """
-    Create a user without hashing a password (so we can use it for login and
-    return the user's username)
-    """
-    username = "user1"
-    password = "bar"
-    django_user_model.objects.create_user(
-        username=username,
-        password=password
-    )  # no user factory so the pass is not hashed
-    client.login(
-        username=username,
-        password=password
-    )
-    yield username
-
-
 class TestCommonTemplateTag:
     """Check common template tags"""
 
