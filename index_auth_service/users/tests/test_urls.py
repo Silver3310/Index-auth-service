@@ -28,8 +28,3 @@ def test_list():
 def test_redirect():
     assert reverse("users:redirect") == "/users/~redirect/"
     assert resolve("/users/~redirect/").view_name == "users:redirect"
-
-
-def test_friends():
-    assert reverse("users:friends") == "/users/~friends/"
-    assert resolve("/users/~friends/").view_name == "users:friends"

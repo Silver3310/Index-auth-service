@@ -20,13 +20,13 @@
                   </td>
                   {% if object.status == 'WR' %} {# user_from is a initiator and the status is waiting #}
                     <td data-label="Approve">
-                      <a href="{% url 'users:approve_friend' object.user_from.pk %}?friends=1">{% trans 'Approve' %}</a>
+                      <a href="{% url 'friends:approve_friend' object.user_from.pk %}?friends=1">{% trans 'Approve' %}</a>
                       /
-                      <a href="{% url 'users:delete_friend' object.user_from.pk %}?friends=1">{% trans 'Refuse' %}</a>
+                      <a href="{% url 'friends:delete_friend' object.user_from.pk %}?friends=1">{% trans 'Refuse' %}</a>
                     </td>
                   {% else %}
                     <td data-label="Delete">
-                      <a href="{% url 'users:delete_friend' object.user_from.pk %}?friends=1">{% trans 'Delete' %}</a>
+                      <a href="{% url 'friends:delete_friend' object.user_from.pk %}?friends=1">{% trans 'Delete' %}</a>
                     </td>
                   {% endif %}
                 {% else %}
@@ -34,7 +34,7 @@
                     <a href="{% url 'users:detail' object.user_to.username %}">{{ object.user_to.username }}</a>
                   </td>
                   <td data-label="Delete">
-                    <a href="{% url 'users:delete_friend' object.user_to.pk %}?friends=1">{% trans 'Delete' %}</a>
+                    <a href="{% url 'friends:delete_friend' object.user_to.pk %}?friends=1">{% trans 'Delete' %}</a>
                   </td>
                 {% endif %}
               </tr>

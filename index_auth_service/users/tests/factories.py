@@ -5,9 +5,6 @@ from django.contrib.auth import get_user_model
 from factory import DjangoModelFactory
 from factory import Faker
 from factory import post_generation
-from factory import SubFactory
-
-from index_auth_service.users.models import Friendship
 
 
 class UserFactory(DjangoModelFactory):
@@ -32,13 +29,3 @@ class UserFactory(DjangoModelFactory):
     class Meta:
         model = get_user_model()
         django_get_or_create = ["username"]
-
-
-class FriendshipFactory(DjangoModelFactory):
-    """Factory for the friendship model"""
-
-    user_from = SubFactory(UserFactory)
-    user_to = SubFactory(UserFactory)
-
-    class Meta:
-        model = Friendship

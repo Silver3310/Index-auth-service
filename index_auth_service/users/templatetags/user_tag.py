@@ -1,7 +1,7 @@
 from django import template
 from django.contrib.auth import get_user_model
 
-from index_auth_service.users.models import Friendship
+from index_auth_service.friends.models import Friendship
 
 register = template.Library()
 User = get_user_model()

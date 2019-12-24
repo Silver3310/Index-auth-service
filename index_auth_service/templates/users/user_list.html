@@ -21,24 +21,24 @@
                   {% get_friend object.pk as friendship %}
                   {% if friendship.status == 'WR' %}
                     {% if friendship.user_to == request.user %} {# user_from is a initiator and the status is waiting #}
-                      <a href="{% url 'users:approve_friend' object.pk %}">{% trans 'Approve' %}</a>
+                      <a href="{% url 'friends:approve_friend' object.pk %}">{% trans 'Approve' %}</a>
                       /
-                      <a href="{% url 'users:delete_friend' object.pk %}">{% trans 'Refuse' %}</a>
+                      <a href="{% url 'friends:delete_friend' object.pk %}">{% trans 'Refuse' %}</a>
                     {% else %}
                       <a
-                        href="{% url 'users:delete_friend' object.pk %}"
+                        href="{% url 'friends:delete_friend' object.pk %}"
                         onmouseover="this.innerHTML='{% trans 'Cancel' %}';"
                         onmouseout="this.innerHTML='{% trans 'Waiting for reply' %}';"
                       >{% trans 'Waiting for reply' %}</a>
                     {% endif %}
                   {% elif friendship.status == 'FR' %}
                     <a
-                      href="{% url 'users:delete_friend' object.pk %}"
+                      href="{% url 'friends:delete_friend' object.pk %}"
                       onmouseover="this.innerHTML='{% trans 'Delete' %}';"
                       onmouseout="this.innerHTML='{% trans 'Friends' %}';"
                     >{% trans 'Friends' %}</a>
                   {% else %}
-                    <a href="{% url 'users:add_friend' object.pk %}">{% trans 'Add to Friends' %}</a>
+                    <a href="{% url 'friends:add_friend' object.pk %}">{% trans 'Add to Friends' %}</a>
                   {% endif %}
                 </td>
               </tr>

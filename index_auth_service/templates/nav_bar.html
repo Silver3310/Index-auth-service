@@ -9,7 +9,7 @@
             {# URL provided by django-allauth/account/urls.py #}
             <a class="{{ detail_active }} item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
             <a class="{{ list_active }} item" href="{% url 'users:list' %}">{% trans "Users" %}</a>
-            <a class="{{ friends_active }} item" href="{% url 'users:friends' %}">{% trans "Friends" %}</a>
+            <a class="{{ friends_active }} item" href="{% url 'friends:friends' %}">{% trans "Friends" %}</a>
             <div class="right menu">
               <div class="item">
                 {# URL provided by django-allauth/account/urls.py #}
@@ -39,7 +39,7 @@
           {# URL provided by django-allauth/account/urls.py #}
           <a class="{{ detail_active }} item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
           <a class="{{ list_active }} item" href="{% url 'users:list' %}">{% trans "Users" %}</a>
-          <a class="{{ friends_active }} item" href="{% url 'users:friends' %}">{% trans "Friends" %}</a>
+          <a class="{{ friends_active }} item" href="{% url 'friends:friends' %}">{% trans "Friends" %}</a>
           {# URL provided by django-allauth/account/urls.py #}
           <a class="{{ logout_active }} item" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
         {% else %}
@@ -62,7 +62,7 @@
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="{{ detail_active }} item" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
                 <a class="{{ list_active }} item" href="{% url 'users:list' %}">{% trans "Users" %}</a>
-                <a class="{{ friends_active }} item" href="{% url 'users:friends' %}">{% trans "Friends" %}</a>
+                <a class="{{ friends_active }} item" href="{% url 'friends:friends' %}">{% trans "Friends" %}</a>
                 <div class="right item">
                   {# URL provided by django-allauth/account/urls.py #}
                   <a class="ui inverted button" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
