@@ -37,10 +37,10 @@ def user_friend(
 
 
 @pytest.fixture()
-def user_to_login(
+def user_to_login_username(
     client,
     django_user_model
-):
+) -> str:
     """
     Create a user without hashing a password (so we can use it for login and
     return the user's username)
@@ -56,3 +56,26 @@ def user_to_login(
         password=password
     )
     yield username
+
+
+@pytest.fixture()
+def user_to_login(
+    client,
+    django_user_model
+) -> settings.AUTH_USER_MODEL:
+    """
+    Create a user without hashing a password (so we can use it for login and
+    return the user)
+    """
+    username = "user1"
+    password = "bar"
+    user = django_user_model.objects.create_user(
+        username=username,
+        password=password
+    )  # no user factory so the pass is not hashed
+    client.login(
+        username=username,
+        password=password
+    )
+    yield user
+

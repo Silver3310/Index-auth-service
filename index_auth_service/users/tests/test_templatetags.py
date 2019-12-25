@@ -59,7 +59,7 @@ class TestCommonTemplateTag:
     def test_nav_bar_account_logout(
         self,
         request_factory: RequestFactory,
-        user_to_login,
+        user_to_login_username: str,
         client
     ):
         """
@@ -77,7 +77,7 @@ class TestCommonTemplateTag:
     def test_nav_bar_friends(
         self,
         request_factory: RequestFactory,
-        user_to_login,
+        user_to_login_username: str,
         client
     ):
         """
@@ -95,7 +95,7 @@ class TestCommonTemplateTag:
     def test_nav_bar_list(
         self,
         request_factory: RequestFactory,
-        user_to_login,
+        user_to_login_username: str,
         client
     ):
         """
@@ -113,7 +113,7 @@ class TestCommonTemplateTag:
     def test_nav_bar_detail(
         self,
         request_factory: RequestFactory,
-        user_to_login,
+        user_to_login_username: str,
         client
     ):
         """
@@ -123,7 +123,7 @@ class TestCommonTemplateTag:
         url_to_check = reverse(
             'users:detail',
             kwargs={
-                'username': user_to_login
+                'username': user_to_login_username
             }
         )
         response = client.get(url_to_check)
