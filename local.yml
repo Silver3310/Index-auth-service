@@ -17,6 +17,7 @@ services:
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
+      - ./.envs/.private
     ports:
       - "8000:8000"
     command: /start
@@ -41,7 +42,7 @@ services:
     depends_on:
       - redis
       - postgres
-      
+
     ports: []
     command: /start-celeryworker
 
@@ -51,7 +52,7 @@ services:
     depends_on:
       - redis
       - postgres
-      
+
     ports: []
     command: /start-celerybeat
 

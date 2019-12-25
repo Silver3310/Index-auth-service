@@ -1,7 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
-
+import os
 import environ
 
 ROOT_DIR = (
@@ -37,6 +37,8 @@ USE_L10N = True
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [ROOT_DIR.path("locale")]
+
+HOST_ADDRESS = 'http://0.0.0.0:8000'
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -212,13 +214,19 @@ EMAIL_BACKEND = env(
 )
 # https://docs.djangoproject.com/en/2.2/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
+EMAIL_USE_TLS = bool(int(env("EMAIL_USE_TLS")))  # '0' - False, '1' - True
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = int(env("EMAIL_PORT"))
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
 ADMIN_URL = "admin/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Elivanov Alexey""", "elivanov-alexey@example.com")]
+ADMINS = [("""Elivanov Alexey""", env("EMAIL_HOST_USER"))]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
@@ -241,6 +249,25 @@ LOGGING = {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
+        },
+        "console-war": {
+            "level": "WARNING",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(ROOT_DIR, 'warning.log'),
+        },
+    },
+    'loggers': {
+        'index_auth_service.friends.tasks': {
+            'handlers': [
+                'console-war',
+                'file'
+            ],
+            'level': 'WARNING',
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
