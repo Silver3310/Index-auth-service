@@ -20,7 +20,7 @@ def send_email(
     email: str
 ) -> int:
     """Send an email to a user who has to approve or refuse a friendship"""
-    email = EmailMessage(
+    email_msg = EmailMessage(
         title,
         body,
         settings.DEFAULT_FROM_EMAIL,
@@ -28,7 +28,7 @@ def send_email(
     )
     result = False
     try:
-        result = email.send()  # 1 if successful
+        result = email_msg.send()  # 1 if successful
     except SMTPException as e:
         logger.warning(
             "{datetime_now}: email for {email} failed with the message "

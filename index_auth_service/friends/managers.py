@@ -1,11 +1,9 @@
-from django.contrib.auth import get_user_model
+from django.conf import settings
 
 from django.db.models import ObjectDoesNotExist
 from django.db.models import Manager
 from django.db.models import QuerySet
 from django.db.models import Q
-
-User = get_user_model()
 
 
 class FriendshipQuerySet(QuerySet):
@@ -15,7 +13,7 @@ class FriendshipQuerySet(QuerySet):
 
     def find_friends(
         self,
-        user: User
+        user: settings.AUTH_USER_MODEL
     ):
         """Find all the friends for the user"""
         return self.filter(
@@ -34,8 +32,8 @@ class FriendshipManager(Manager):
 
     def get_user_friend(
         self,
-        user_from: User,
-        user_to: User
+        user_from: settings.AUTH_USER_MODEL,
+        user_to: settings.AUTH_USER_MODEL
     ):
         try:
             friends = self.get(
@@ -48,8 +46,8 @@ class FriendshipManager(Manager):
 
     def make_user_friend(
         self,
-        user_from: User,
-        user_to: User
+        user_from: settings.AUTH_USER_MODEL,
+        user_to: settings.AUTH_USER_MODEL
     ):
         """Make a friend request from a user with a pk user"""
         friends = self.create(
@@ -60,8 +58,8 @@ class FriendshipManager(Manager):
 
     def delete_user_friend(
         self,
-        user_from: User,
-        user_to: User
+        user_from: settings.AUTH_USER_MODEL,
+        user_to: settings.AUTH_USER_MODEL
     ):
         """Delete a friend request or friendship"""
         friends = self.get(
@@ -72,8 +70,8 @@ class FriendshipManager(Manager):
 
     def approve_user_friend(
         self,
-        user_from: User,
-        user_to: User
+        user_from: settings.AUTH_USER_MODEL,
+        user_to: settings.AUTH_USER_MODEL
     ):
         """Approve a friend request or friendship"""
         friends = self.get(

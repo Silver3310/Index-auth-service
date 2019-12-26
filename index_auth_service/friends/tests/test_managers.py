@@ -1,12 +1,10 @@
 import pytest
-from django.contrib.auth import get_user_model
+from django.conf import settings
 
 from index_auth_service.friends.models import Friendship
 
 from index_auth_service.users.tests.factories import UserFactory
 from .factories import FriendshipFactory
-
-User = get_user_model()
 
 pytestmark = pytest.mark.django_db
 
@@ -14,7 +12,7 @@ pytestmark = pytest.mark.django_db
 class TestFriendshipManager:
     def test_find_friends(
         self,
-        user: User
+        user: settings.AUTH_USER_MODEL
     ):
         FriendshipFactory(user_to=user)
         FriendshipFactory(user_from=user)
@@ -27,7 +25,7 @@ class TestFriendshipManager:
 
     def test_make_user_friend(
         self,
-        user: User
+        user: settings.AUTH_USER_MODEL
     ):
         friends: Friendship = Friendship.objects.make_user_friend(
             user,
@@ -38,8 +36,8 @@ class TestFriendshipManager:
 
     def test_get_user_friend(
         self,
-        user: User,
-        user_friend: User
+        user: settings.AUTH_USER_MODEL,
+        user_friend: settings.AUTH_USER_MODEL
     ):
         assert Friendship.objects.get_user_friend(
             user_to=user,
@@ -51,8 +49,8 @@ class TestFriendshipManager:
 
     def test_approve_user_fried(
         self,
-        user: User,
-        user_friend: User
+        user: settings.AUTH_USER_MODEL,
+        user_friend: settings.AUTH_USER_MODEL
     ):
         Friendship.objects.approve_user_friend(
             user_to=user,
@@ -66,8 +64,8 @@ class TestFriendshipManager:
 
     def test_delete_user_friend(
         self,
-        user: User,
-        user_friend: User
+        user: settings.AUTH_USER_MODEL,
+        user_friend: settings.AUTH_USER_MODEL
     ):
         Friendship.objects.delete_user_friend(
             user_to=user,

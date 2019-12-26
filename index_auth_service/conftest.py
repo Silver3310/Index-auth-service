@@ -55,7 +55,7 @@ def user_to_login_username(
         username=username,
         password=password
     )
-    yield username
+    return username
 
 
 @pytest.fixture()
@@ -77,5 +77,5 @@ def user_to_login(
         username=username,
         password=password
     )
-    yield user
+    return user
 
