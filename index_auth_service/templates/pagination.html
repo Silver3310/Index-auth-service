@@ -1,0 +1,39 @@
+{% load static %}
+
+{# CSS library for awesome fonts #}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'fonts/fontawesome-free/css/all.css' %}"
+>
+{# style the paginator #}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/pagination.css' %}"
+>
+
+{% if is_paginated %}
+<div class="ui pagination menu">
+    {% if page_obj.has_previous %}
+        <a class="icon item" href="?page=1">
+            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+        </a>
+        <a class="icon item" href="?page={{ page_obj.previous_page_number }}">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+    <span class="item">
+    <span class="pagination-current">{{ page_obj.number }}</span>
+    <span class="pagination-of">of</span>
+    <span class="pagination-total">{{ page_obj.paginator.num_pages }}</span>
+    </span>
+    {% if page_obj.has_next %}
+        <a class="icon item" href="?page={{ page_obj.next_page_number }}">
+            <i class="fa fa-angle-right" aria-hidden="true"></i> </a>
+        <a class="icon item" href="?page={{ page_obj.paginator.num_pages }}">
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        </a>
+    {% endif %}
+</div>
+{% endif %}

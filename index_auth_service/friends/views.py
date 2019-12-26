@@ -18,6 +18,7 @@ class FriendshipListView(LoginRequiredMixin, ListView):
     """
 
     model = Friendship
+    paginate_by = 10
     template_name = 'friends/friends_list.html'
 
     def get_queryset(self):
