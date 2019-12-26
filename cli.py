@@ -38,6 +38,18 @@ def test():
 
 
 @click.command()
+def shp():
+    """Open the project's shell_plus"""
+    call(
+        'docker exec -ti index-auth-service_django_1 sh -c'.split()
+        + [
+            "source compose/production/django/entrypoint && "
+            "python manage.py shell_plus"
+        ]
+    )
+
+
+@click.command()
 def cov():
     """Test the project with coverage and html report"""
     call(
@@ -64,6 +76,7 @@ def rc():
 cli.add_command(runserver)
 cli.add_command(stop)
 cli.add_command(test)
+cli.add_command(shp)
 cli.add_command(cov)
 cli.add_command(rc)
 

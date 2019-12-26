@@ -38,7 +38,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [ROOT_DIR.path("locale")]
 
-HOST_ADDRESS = 'http://0.0.0.0:8000'
+HOST_ADDRESS = 'http://localhost:8000'
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -70,6 +70,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "allauth.socialaccount.providers.vk",
     "rest_framework",
     "django_celery_beat",
 ]

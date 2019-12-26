@@ -331,3 +331,5 @@ index_auth_service/media/
 .env
 .envs/*
 !.envs/.local/
+
+notes/
