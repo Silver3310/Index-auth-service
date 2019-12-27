@@ -1,7 +1,16 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static i18n user_tag %}
 
 {% block title %}{% trans 'List of friends' %}{% endblock %}
+
+{% block css %}
+{# Align the image #}
+<link
+  href="{% static 'css/image.css' %}"
+  rel="stylesheet"
+  type="text/css"
+>
+{% endblock %}
 
 {% block content %}
 <div class="ui vertical low-stripe segment">
@@ -15,6 +24,15 @@
                   {% trans 'Status' %}: {{ object.get_status_display }}
                 </td>
                 {% if object.user_to == request.user %}
+                  <td data-label="Avatar">
+                    <a href="{% url 'users:detail' object.user_from.username %}">
+                      {% if object.user_from.avatar %}
+                        <img src="{{ object.user_from.avatar_thumbnail.url }}" class="image-round-border">
+                      {% else %}
+                        <img src="{% get_default_thumbnail_avatar %}" class="image-round-border">
+                      {% endif %}
+                    </a>
+                  </td>
                   <td data-label="Name">
                     <a href="{% url 'users:detail' object.user_from.username %}">{{ object.user_from.username }}</a>
                   </td>
@@ -30,6 +48,15 @@
                     </td>
                   {% endif %}
                 {% else %}
+                  <td data-label="Avatar">
+                    <a href="{% url 'users:detail' object.user_to.username %}">
+                      {% if object.user_to.avatar %}
+                        <img src="{{ object.user_to.avatar_thumbnail.url }}" class="image-round-border">
+                      {% else %}
+                        <img src="{% get_default_thumbnail_avatar %}" class="image-round-border">
+                      {% endif %}
+                    </a>
+                  </td>
                   <td data-label="Name">
                     <a href="{% url 'users:detail' object.user_to.username %}">{{ object.user_to.username }}</a>
                   </td>

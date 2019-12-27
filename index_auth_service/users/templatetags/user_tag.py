@@ -1,5 +1,6 @@
 from django import template
 from django.contrib.auth import get_user_model
+from django.conf import settings
 
 from index_auth_service.friends.models import Friendship
 
@@ -14,3 +15,15 @@ def get_friend(context, pk: str):
         context['request'].user,
         User.objects.get(pk=int(pk))
     )
+
+
+@register.simple_tag(takes_context=False)
+def get_default_avatar():
+    """Return a default image for avatar"""
+    return settings.DEFAULT_AVATAR_IMAGE
+
+
+@register.simple_tag(takes_context=False)
+def get_default_thumbnail_avatar():
+    """Return a default image for avatar"""
+    return settings.DEFAULT_AVATAR_IMAGE_THUMBNAIL

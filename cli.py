@@ -27,12 +27,33 @@ def stop():
 
 
 @click.command()
+def build():
+    """Build the django service of the project"""
+    call(
+        'docker-compose -f local.yml up --build django celeryworker '
+        'celerybeat flower'.split()
+    )
+
+
+@click.command()
 def test():
     """Test the project"""
     call(
         'docker exec -ti index-auth-service_django_1 sh -c'.split()
         + [
             "source compose/production/django/entrypoint && pytest"
+        ]
+    )
+
+
+@click.command()
+def sh():
+    """Open the project's sh"""
+    call(
+        'docker exec -ti index-auth-service_django_1 sh -c'.split()
+        + [
+            "source compose/production/django/entrypoint && "
+            "sh"
         ]
     )
 
@@ -76,6 +97,8 @@ def rc():
 cli.add_command(runserver)
 cli.add_command(stop)
 cli.add_command(test)
+cli.add_command(build)
+cli.add_command(sh)
 cli.add_command(shp)
 cli.add_command(cov)
 cli.add_command(rc)

@@ -73,6 +73,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.vk",
     "rest_framework",
     "django_celery_beat",
+    "imagekit",
 ]
 
 LOCAL_APPS = [
@@ -314,3 +315,6 @@ SOCIALACCOUNT_ADAPTER = "index_auth_service.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+DEFAULT_AVATAR_IMAGE = STATIC_URL + 'images/user_avatar_default.png'
+DEFAULT_AVATAR_IMAGE_THUMBNAIL = STATIC_URL \
+                                 + 'images/user_avatar_default_thumbnail.jpg'

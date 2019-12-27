@@ -1,42 +1,44 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static i18n user_tag %}
 
 {% block title %}{% trans 'User' %}: {{ object.username }}{% endblock %}
+
+{% block css %}
+{# Align the image #}
+<link
+  href="{% static 'css/image.css' %}"
+  rel="stylesheet"
+  type="text/css"
+>
+{% endblock %}
 
 {% block content %}
 <div class="ui vertical stripe segment">
   <div class="ui middle aligned stackable grid container">
-    <div class="row">
-      <div class="eight wide column">
-        <div class="container">
-
-          <div class="row">
-            <div class="col-sm-12">
-
-              <h2>{{ object.username }}</h2>
-              {% if object.name %}
-                <p>{{ object.name }}</p>
-              {% endif %}
-            </div>
+        <div class="ui stackable four column center aligned grid">
+          <div class="column">
+            <h2>{{ object.username }}</h2>
+            {% if object.name %}
+              <h3>{{ object.name }}</h3>
+            {% endif %}
+            <h4>Date Joined: {{ object.date_joined }}</h4>
           </div>
-
-        {% if object == request.user %}
-        {# Action buttons #}
-        <div class="row">
-
-          <div class="col-sm-12">
+          <div class="column image-div">
+            {% if object.avatar %}
+              <img src="{{ object.avatar.url }}">
+            {% else %}
+              <img src="{% get_default_avatar %}">
+            {% endif %}
+          </div>
+          {% if object == request.user %}
+          {# Action buttons #}
+          <div class="column">
             <a class="ui primary button" href="{% url 'users:update' %}" role="button">{% trans 'My Info' %}</a>
             <a class="ui orange button" href="{% url 'account_email' %}" role="button">{% trans 'E-Mail' %}</a>
           </div>
-
+          {# End of action buttons #}
+          {% endif %}
         </div>
-        {# End of action buttons #}
-        {% endif %}
-
-
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 {% endblock content %}

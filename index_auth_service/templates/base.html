@@ -15,8 +15,6 @@
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
 
-    {% block css %}
-
     {# Third-party CSS libraries go here #}
     <link
             href="{% static 'css/libs/semantic.min.css' %}"
@@ -31,6 +29,7 @@
             type="text/css"
     >
 
+    {% block css %}
     {% endblock %}
 
   </head>

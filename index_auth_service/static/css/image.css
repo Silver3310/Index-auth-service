@@ -1,0 +1,23 @@
+.image-div {
+  height: 300px; /*Max Possible Height of the image */
+}
+
+.image-div > img {
+  position: absolute;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  top: 0;  /* Centering the image */
+  bottom: 0;    /* Centering the image */
+  left: 0;   /* Centering the image */
+  right: 0;   /* Centering the image */
+  margin: auto;
+  border: 1px solid #E9ECEA;
+  border-radius: 20px;
+}
+
+.image-round-border {
+  border: 1px solid #E9ECEA;
+  border-radius: 20px;
+}

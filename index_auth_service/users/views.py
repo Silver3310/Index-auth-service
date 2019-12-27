@@ -32,7 +32,10 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     """
 
     model = User
-    fields = ["name"]
+    fields = [
+        "name",
+        "avatar"
+    ]
 
     def get_success_url(self):
         return reverse(
@@ -42,7 +45,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
             }
         )
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         return User.objects.get(username=self.request.user.username)
 
     def form_valid(self, form):
