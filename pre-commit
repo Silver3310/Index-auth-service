@@ -5,8 +5,6 @@
 # ========================================================
 
 CHECK_PEP8=true
-CHECK_TEST=true
-CHECK_MYPY=true
 SHOW_OUTPUT=true
 AUTO_FIX=false
 SKIP_PEP8=false
@@ -16,7 +14,7 @@ SKIP_PEP8=false
 # ========================================================
 
 function auto_pep8 {
-  for file in $(git diff --cached --name-only); do
+  for file in $(git diff --cached --name-only | grep .py); do
     black -q $file
     echo "the changes were made to file: $file"
   done
@@ -28,7 +26,7 @@ function check_pep8 {
 
   problems=false
 
-  for file in $(git diff --cached --name-only); do
+  for file in $(git diff --cached --name-only | grep .py); do
     flake8 -q -q $file
     pep8errors=$
     if [ "$pep8errors" != 0 ]; then
@@ -40,7 +38,7 @@ function check_pep8 {
   if [ "$problems" != false ]; then
       if [ "$SHOW_OUTPUT" = true ];
       then
-         for file in $(git diff --cached --name-only); do
+         for file in $(git diff --cached --name-only | grep .py); do
            flake8 $file
          done
       fi
@@ -75,14 +73,4 @@ function check_pep8 {
 
 if [ "$CHECK_PEP8" = true ]; then
       check_pep8
-fi
-
-if [ "$CHECK_TEST" = true ]; then
-      echo "Running Tests..."
-      python cli.py test
-fi
-
-if [ "$CHECK_MYPY" = true ]; then
-      echo "Running MyPy..."
-      python cli.py mypy
 fi
