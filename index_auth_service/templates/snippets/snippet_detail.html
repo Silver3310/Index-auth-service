@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static i18n user_tag %}
+
+{% block title %}{% trans 'Code Snippet' %} #{{ object.pk }}{% endblock %}
+
+{% block content %}
+<div class="ui vertical stripe segment">
+  <div class="ui middle aligned stackable grid container">
+        <div class="ui stackable four column center aligned grid">
+          <div class="column">
+            {% if object.is_visible %}
+              <h3>{% trans 'Visible for users' %}</h3>
+            {% else %}
+              <h3>{% trans 'Not visible for user' %}</h3>
+            {% endif %}
+          </div>
+          <div class="column">
+            {{ object.code }}
+          </div>
+          {% if object.user == request.user %}
+          {# Action buttons #}
+          <div class="column">
+            <div class="ui large buttons">
+              <a class="ui blue button" href="{% url 'snippets:update' object.pk %}">Update</a>
+              <div class="or"></div>
+              <a class="negative ui button" href="{% url 'snippets:delete' object.pk %}">Delete</a>
+            </div>
+          </div>
+          {# End of action buttons #}
+          {% endif %}
+        </div>
+  </div>
+</div>
+{% endblock content %}

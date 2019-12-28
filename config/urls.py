@@ -31,6 +31,11 @@ urlpatterns = [
         "friends/",
         include("index_auth_service.friends.urls", namespace="friends")
     ),
+    # Snippets management
+    path(
+        "snippets/",
+        include("index_auth_service.snippets.urls", namespace="snippets")
+    ),
     path(
         "accounts/",
         include("allauth.urls")

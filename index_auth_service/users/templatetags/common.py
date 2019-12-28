@@ -21,6 +21,7 @@ def nav_bar(context):
     signup_active = ''
     login_active = ''
     friends_active = ''
+    snippets_active = ''
 
     request = context['request']
     url_name = resolve(request.path_info).url_name
@@ -41,6 +42,8 @@ def nav_bar(context):
         signup_active = 'active'
     elif url_name == 'account_login':
         login_active = 'active'
+    elif url_name == 'snippets' or url_name == 'snippet':
+        snippets_active = 'active'
 
     return {
         'request': request,
@@ -52,4 +55,5 @@ def nav_bar(context):
         'logout_active': logout_active,
         'signup_active': signup_active,
         'login_active': login_active,
+        'snippets_active': snippets_active,
     }

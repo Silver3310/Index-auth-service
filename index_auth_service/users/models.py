@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from django.db.models import CharField

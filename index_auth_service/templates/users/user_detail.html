@@ -21,7 +21,7 @@
             {% if object.name %}
               <h3>{{ object.name }}</h3>
             {% endif %}
-            <h4>Date Joined: {{ object.date_joined }}</h4>
+            <h4>{% trans 'Date Joined' %}: {{ object.date_joined }}</h4>
           </div>
           <div class="column image-div">
             {% if object.avatar %}

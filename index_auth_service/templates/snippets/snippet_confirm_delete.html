@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n %}
+
+{% block title %}{% trans 'Delete Code Snippet' %}{% endblock %}
+
+{% block content %}
+<div class="ui vertical stripe segment">
+  <div class="ui middle aligned stackable grid container">
+    <div class="row">
+      <div class="eight wide column">
+        <h1>{% trans 'Delete Code Snippet' %}</h1>
+        <form method="post">{% csrf_token %}
+          <p>{% trans 'Are you sure you want to delete the snippet' %} #{{ object.pk }}?</p>
+          <input type="submit" value="Confirm">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

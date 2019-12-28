@@ -78,8 +78,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "index_auth_service.users.apps.UsersConfig",
-    "index_auth_service.friends.apps.FriendsConfig"
-    # Your stuff: custom apps go here
+    "index_auth_service.friends.apps.FriendsConfig",
+    "index_auth_service.snippets.apps.SnippetsConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

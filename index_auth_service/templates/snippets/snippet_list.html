@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static i18n user_tag %}
+
+{% block title %}{% trans 'List of snippets' %}{% endblock %}
+
+{% block content %}
+<div class="ui vertical low-stripe segment">
+  <div class="ui middle aligned stackable grid container">
+      <table class="ui celled table" style="text-align: center; vertical-align: middle; table-layout: fixed;">
+      <tbody>
+        <tr>
+          <td data-label="Add">
+            <a class="positive ui button" href="{% url 'snippets:create' %}"><i class="fas fa-plus"></i>Add a snippet</a>
+          </td>
+        </tr>
+      {% for object in object_list %}
+        <tr>
+          <td data-label="PK">
+            <a href="{% url 'snippets:snippet' object.pk %}">
+              <button class="huge ui button">
+                {{ object.pk }}
+              </button>
+            </a>
+          </td>
+          <td data-label="User">
+            <a href="{{ object.user.get_absolute_url }}">{{ object.user.username }}</a>
+          </td>
+          <td data-label="Code">
+            {{ object.code }}
+          </td>
+          <td data-label="IsVisible">
+            {% if object.is_visible %}
+              <i class="fas fa-eye"></i>
+            {% else %}
+              <i class="fas fa-eye-slash"></i>
+            {% endif %}
+          </td>
+          <td data-label="UpdateDelete">
+            {% if object.user == request.user %}
+            <div class="ui large buttons">
+              <a class="ui blue button" href="{% url 'snippets:update' object.pk %}">Update</a>
+              <div class="or"></div>
+              <a class="negative ui button" href="{% url 'snippets:delete' object.pk %}">Delete</a>
+            </div>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% include "pagination.html" %}
+  </div>
+</div>
+{% endblock content %}

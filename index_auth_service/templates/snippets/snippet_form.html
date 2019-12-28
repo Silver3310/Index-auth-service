@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n %}
+
+{% block title %}{% trans 'Create Code Snippet' %}{% endblock %}
+
+{% block content %}
+<div class="ui vertical stripe segment">
+  <div class="ui middle aligned stackable grid container">
+    <div class="row">
+      <div class="eight wide column">
+        <h1>{% trans 'Create Code Snippet' %}</h1>
+        <form class="ui form" method="post" action="{% url 'snippets:create' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <p>
+            <button type="submit" class="ui primary button">Create</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
