@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# --------------------------------------------------------
+# CONTROL PEP8
+# ========================================================
+
+CHECK_PEP8=true
+SHOW_OUTPUT=true
+AUTO_FIX=false
+SKIP_PEP8=false
+
+# --------------------------------------------------------
+# DEFINE CHECK FUNCTIONS
+# ========================================================
+
+function auto_pep8 {
+  for file in $(git diff --cached --name-only); do
+    black -q $file
+    echo "the changes were made to file: $file"
+  done
+}
+
+function check_pep8 {
+
+  echo "Running Python PEP8..."
+
+  problems=false
+
+  for file in $(git diff --cached --name-only); do
+    flake8 -q -q $file
+    pep8errors=$
+    if [ "$pep8errors" != 0 ]; then
+      echo "You got PEP8 problems with $file"
+      problems=true
+    fi
+  done
+
+  if [ "$problems" != false ]; then
+      if [ "$SHOW_OUTPUT" = true ];
+      then
+         for file in $(git diff --cached --name-only); do
+           flake8 $file
+         done
+      fi
+  fi
+
+  if [ "$problems" != false ]; then
+      if [ "$AUTO_FIX" = true ];
+      then
+         auto_pep8
+      fi
+  fi
+
+  if [ "$problems" != false ]; then
+      if [ "$SKIP_PEP8" = true ];
+      then
+         problems=false
+         echo "PEP8 was skipped"
+      fi
+  fi
+
+  if [ "$problems" != false ]; then
+      echo "Aborting commit, fix PEP8 first!"
+      exit 1
+  else
+      echo "Commit is approved"
+  fi
+}
+
+# --------------------------------------------------------
+# CODE BEGINS HERE
+# ========================================================
+
+if [ "$CHECK_PEP8" = true ]; then
+      check_pep8
+fi
