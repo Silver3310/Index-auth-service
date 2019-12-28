@@ -5,6 +5,8 @@
 # ========================================================
 
 CHECK_PEP8=true
+CHECK_TEST=true
+CHECK_MYPY=true
 SHOW_OUTPUT=true
 AUTO_FIX=false
 SKIP_PEP8=false
@@ -73,4 +75,14 @@ function check_pep8 {
 
 if [ "$CHECK_PEP8" = true ]; then
       check_pep8
+fi
+
+if [ "$CHECK_TEST" = true ]; then
+      echo "Running Tests..."
+      python cli.py test
+fi
+
+if [ "$CHECK_MYPY" = true ]; then
+      echo "Running MyPy..."
+      python cli.py mypy
 fi

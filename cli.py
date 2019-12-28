@@ -47,6 +47,18 @@ def test():
 
 
 @click.command()
+def mypy():
+    """Test the project"""
+    call(
+        'docker exec -ti index-auth-service_django_1 sh -c'.split()
+        + [
+            "source compose/production/django/entrypoint && "
+            "mypy index_auth_service"
+        ]
+    )
+
+
+@click.command()
 def sh():
     """Open the project's sh"""
     call(
@@ -125,6 +137,7 @@ cli.add_command(build)
 cli.add_command(sh)
 cli.add_command(shp)
 cli.add_command(cov)
+cli.add_command(mypy)
 cli.add_command(makemigrations)
 cli.add_command(migrate)
 cli.add_command(rc)
