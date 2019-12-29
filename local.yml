@@ -12,6 +12,7 @@ services:
     image: index_auth_service_local_django
     depends_on:
       - postgres
+      - elasticsearch
     volumes:
       - .:/app
     env_file:
@@ -62,3 +63,11 @@ services:
     ports:
       - "5555:5555"
     command: /start-flower
+
+  elasticsearch:
+    image: elasticsearch:7.5.1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    env_file:
+      - ./.envs/.local/.elasticsearch

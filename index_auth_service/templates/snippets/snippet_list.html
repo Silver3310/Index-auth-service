@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n user_tag %}
+{% load static i18n user_tag crispy_forms_tags %}
 
 {% block title %}{% trans 'List of snippets' %}{% endblock %}
 
@@ -12,18 +12,26 @@
           <td data-label="Add">
             <a class="positive ui button" href="{% url 'snippets:create' %}"><i class="fas fa-plus"></i>Add a snippet</a>
           </td>
+          <td data-label="Search">
+            <form class="ui form" method="get" action="{% url 'snippets:search' %}" enctype="multipart/form-data">
+              {{ search_form|crispy }}
+              <p>
+                <button type="submit" class="ui primary button">Search</button>
+              </p>
+            </form>
+          </td>
         </tr>
       {% for object in object_list %}
         <tr>
-          <td data-label="PK">
-            <a href="{% url 'snippets:snippet' object.pk %}">
+          <td data-label="ID">
+            <a href="{% url 'snippets:snippet' object.id %}">
               <button class="huge ui button">
-                {{ object.pk }}
+                {{ object.id }}
               </button>
             </a>
           </td>
           <td data-label="User">
-            <a href="{{ object.user.get_absolute_url }}">{{ object.user.username }}</a>
+            <a href="{% url 'users:detail' object.user.username %}">{{ object.user.username }}</a>
           </td>
           <td data-label="Description">
             {% if object.desc %}
@@ -40,11 +48,11 @@
             {% endif %}
           </td>
           <td data-label="UpdateDelete">
-            {% if object.user == request.user %}
+            {% if object.user.id == request.user.id %}
             <div class="ui large buttons">
-              <a class="ui blue button" href="{% url 'snippets:update' object.pk %}">Update</a>
+              <a class="ui blue button" href="{% url 'snippets:update' object.id %}">Update</a>
               <div class="or"></div>
-              <a class="negative ui button" href="{% url 'snippets:delete' object.pk %}">Delete</a>
+              <a class="negative ui button" href="{% url 'snippets:delete' object.id %}">Delete</a>
             </div>
             {% endif %}
           </td>

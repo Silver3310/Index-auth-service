@@ -18,6 +18,7 @@ django-crispy-forms==1.8.0  # https://github.com/django-crispy-forms/django-cris
 django-redis==4.10.0  # https://github.com/niwinz/django-redis
 django-imagekit==4.0.2  # for resizing images
 django-ckeditor==5.8.0  # ckeditor (rich text)
+django-elasticsearch-dsl==7.1.1  # for searching
 
 # Django REST Framework
 djangorestframework==3.10.3  # https://github.com/encode/django-rest-framework

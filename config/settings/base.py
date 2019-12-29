@@ -76,6 +76,7 @@ THIRD_PARTY_APPS = [
     "imagekit",
     "ckeditor",
     "ckeditor_uploader",
+    "django_elasticsearch_dsl",
 ]
 
 LOCAL_APPS = [
@@ -323,6 +324,7 @@ DEFAULT_AVATAR_IMAGE_THUMBNAIL = STATIC_URL \
 
 
 # CKEditor
+# ------------------------------------------------------------------------------
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
 CKEDITOR_CONFIGS = {
@@ -333,5 +335,14 @@ CKEDITOR_CONFIGS = {
         ],
         'height': 200,
         'extraPlugins': 'codesnippet'
+    }
+}
+
+
+# ElasticSearch
+# ------------------------------------------------------------------------------
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': env("ELASTICSEARCH_HOST", default='192.168.0.19:9200')
     }
 }

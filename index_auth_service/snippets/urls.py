@@ -6,6 +6,8 @@ from .views import snippet_update_view
 from .views import snippet_delete_view
 from .views import snippet_list_view
 
+from .search import snippet_search
+
 
 app_name = "snippets"
 urlpatterns = [
@@ -34,4 +36,9 @@ urlpatterns = [
         view=snippet_update_view,
         name="update"
     ),
+    path(
+        "search",
+        view=snippet_search,
+        name="search"
+    )
 ]
