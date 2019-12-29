@@ -11,6 +11,7 @@
         <h1>{% trans 'Code Snippet' %} #{{ object.pk }}</h1>
         <form class="ui form" method="post" action="{% url 'snippets:update' object.pk %}" enctype="multipart/form-data">
           {% csrf_token %}
+          {{ form.media }}
           {{ form|crispy }}
           <p>
             <button type="submit" class="ui primary button">Update</button>

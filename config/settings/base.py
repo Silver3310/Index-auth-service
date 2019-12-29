@@ -74,6 +74,8 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "django_celery_beat",
     "imagekit",
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 LOCAL_APPS = [
@@ -313,8 +315,23 @@ ACCOUNT_ADAPTER = "index_auth_service.users.adapters.AccountAdapter"
 SOCIALACCOUNT_ADAPTER = "index_auth_service.users.adapters.SocialAccountAdapter"
 
 
-# Your stuff...
+# User avatars
 # ------------------------------------------------------------------------------
 DEFAULT_AVATAR_IMAGE = STATIC_URL + 'images/user_avatar_default.png'
 DEFAULT_AVATAR_IMAGE_THUMBNAIL = STATIC_URL \
                                  + 'images/user_avatar_default_thumbnail.jpg'
+
+
+# CKEditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'snippet': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['CodeSnippet', 'Image'],
+        ],
+        'height': 200,
+        'extraPlugins': 'codesnippet'
+    }
+}

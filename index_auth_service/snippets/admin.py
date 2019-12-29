@@ -10,7 +10,7 @@ class SnippetAdmin(admin.ModelAdmin):
     """
 
     list_display = [
-        "code",
+        "__str__",
         "is_visible"
     ]
     search_fields = ["code"]

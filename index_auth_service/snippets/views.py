@@ -31,6 +31,7 @@ class SnippetUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Snippet
     fields = [
+        "desc",
         "code",
         "is_visible"
     ]
@@ -72,6 +73,7 @@ class SnippetCreateView(LoginRequiredMixin, CreateView):
     """
     model = Snippet
     fields = [
+        "desc",
         "code",
         "is_visible"
     ]

@@ -25,8 +25,12 @@
           <td data-label="User">
             <a href="{{ object.user.get_absolute_url }}">{{ object.user.username }}</a>
           </td>
-          <td data-label="Code">
-            {{ object.code }}
+          <td data-label="Description">
+            {% if object.desc %}
+              {{ object.desc }}
+            {% else %}
+              -
+            {% endif %}
           </td>
           <td data-label="IsVisible">
             {% if object.is_visible %}

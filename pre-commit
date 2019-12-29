@@ -14,7 +14,7 @@ SKIP_PEP8=false
 # ========================================================
 
 function auto_pep8 {
-  for file in $(git diff --cached --name-only | grep .py); do
+  for file in $(git diff --cached --name-only | grep .py | egrep -v migrations); do
     black -q $file
     echo "the changes were made to file: $file"
   done
@@ -26,7 +26,7 @@ function check_pep8 {
 
   problems=false
 
-  for file in $(git diff --cached --name-only | grep .py); do
+  for file in $(git diff --cached --name-only | grep .py | egrep -v migrations); do
     flake8 -q -q $file
     pep8errors=$
     if [ "$pep8errors" != 0 ]; then
@@ -38,7 +38,7 @@ function check_pep8 {
   if [ "$problems" != false ]; then
       if [ "$SHOW_OUTPUT" = true ];
       then
-         for file in $(git diff --cached --name-only | grep .py); do
+         for file in $(git diff --cached --name-only | grep .py | egrep -v migrations); do
            flake8 $file
          done
       fi

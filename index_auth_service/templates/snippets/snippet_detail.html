@@ -3,32 +3,67 @@
 
 {% block title %}{% trans 'Code Snippet' %} #{{ object.pk }}{% endblock %}
 
+{% block css %}
+{# Highlight the code #}
+  <link
+          href="{% static 'css/libs/highlight.css' %}"
+          rel="stylesheet"
+          type="text/css"
+  >
+
+{# enable scrolling of code for mobile version #}
+  <link
+            href="{% static 'css/code.css' %}"
+            rel="stylesheet"
+            type="text/css"
+  >
+
+{# CSS library for awesome fonts #}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'fonts/fontawesome-free/css/all.css' %}"
+  >
+{% endblock %}
+
 {% block content %}
 <div class="ui vertical stripe segment">
   <div class="ui middle aligned stackable grid container">
-        <div class="ui stackable four column center aligned grid">
-          <div class="column">
-            {% if object.is_visible %}
-              <h3>{% trans 'Visible for users' %}</h3>
-            {% else %}
-              <h3>{% trans 'Not visible for user' %}</h3>
-            {% endif %}
-          </div>
-          <div class="column">
-            {{ object.code }}
-          </div>
-          {% if object.user == request.user %}
-          {# Action buttons #}
-          <div class="column">
-            <div class="ui large buttons">
-              <a class="ui blue button" href="{% url 'snippets:update' object.pk %}">Update</a>
-              <div class="or"></div>
-              <a class="negative ui button" href="{% url 'snippets:delete' object.pk %}">Delete</a>
-            </div>
-          </div>
-          {# End of action buttons #}
-          {% endif %}
+    <div class="ui stackable four column grid">
+      <div class="row">
+        <h3>"{{ object.desc }}"</h3>
+      </div>
+      <div class="row">
+        <h3><i><a href="{{ object.user.get_absolute_url }}">{{ object.user.username }}</a></i></h3>
+      </div>
+      <div class="row">
+        {% if object.is_visible %}
+          <h4>({% trans 'Visible' %} <i class="fas fa-eye"></i>)</h4>
+        {% else %}
+          <h4>({% trans 'Invisible' %} <i class="fas fa-eye-slash"></i>)</h4>
+        {% endif %}
+      </div>
+      <div class="row code-div">
+        {{ object.code | safe }}
+      </div>
+      {% if object.user == request.user %}
+      {# Action buttons #}
+      <div class="row">
+        <div class="ui large buttons">
+          <a class="ui blue button" href="{% url 'snippets:update' object.pk %}">Update</a>
+          <div class="or"></div>
+          <a class="negative ui button" href="{% url 'snippets:delete' object.pk %}">Delete</a>
         </div>
+      </div>
+      {# End of action buttons #}
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock content %}
+
+{% block javascript %}
+{# Highlight the code #}
+    <script src="{% static 'js/libs/highlight.js' %}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}

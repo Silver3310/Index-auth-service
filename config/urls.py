@@ -16,6 +16,11 @@ urlpatterns = [
         TemplateView.as_view(template_name="pages/about.html"),
         name="about"
     ),
+    # CKEditor
+    path(
+        "ckeditor/",
+        include("ckeditor_uploader.urls"),
+    ),
     # Django Admin, use {% url 'admin:index' %}
     path(
         settings.ADMIN_URL,
@@ -40,7 +45,6 @@ urlpatterns = [
         "accounts/",
         include("allauth.urls")
     ),
-    # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
